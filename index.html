@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PC Zone | Computers • Gaming • Components</title>
+  <meta name="description" content="PC Zone - متجر متخصص في أجهزة الكمبيوتر واللابتوبات ومكونات وتجهيزات الـGaming.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container nav">
+      <a class="brand" href="#"><span>PC</span> ZONE</a>
+      <nav>
+        <a href="#home">الرئيسية</a>
+        <a href="#products">المنتجات</a>
+        <a href="#categories">الأقسام</a>
+        <a href="#contact">تواصل معنا</a>
+      </nav>
+      <button class="icon-btn" id="themeBtn" aria-label="تغيير المظهر">☼</button>
+    </div>
+  </header>
+
+  <main>
+    <section id="home" class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">PC ZONE • TECH STORE</div>
+          <h1>كل اللي جهازك<br><span>محتاجه.</span></h1>
+          <p>لابتوبات، أجهزة Gaming، قطع كمبيوتر، شاشات وإكسسوارات — اختار منتجك واطلبه مباشرة عبر WhatsApp.</p>
+          <div class="hero-actions">
+            <a class="btn primary" href="#products">تصفح المنتجات</a>
+            <a class="btn ghost" href="#categories">استكشف الأقسام</a>
+          </div>
+          <div class="trust-row">
+            <span>✓ منتجات متنوعة</span><span>✓ مواصفات واضحة</span><span>✓ طلب سريع</span>
+          </div>
+        </div>
+        <div class="hero-card">
+          <div class="glow"></div>
+          <div class="device">PC<br><b>ZONE</b></div>
+          <div class="floating-card top">GAMING</div>
+          <div class="floating-card bottom">UPGRADE YOUR SETUP</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="categories" class="section">
+      <div class="container">
+        <div class="section-head">
+          <div><span class="eyebrow">SHOP BY CATEGORY</span><h2>اختار القسم</h2></div>
+        </div>
+        <div class="category-grid">
+          <button class="category" data-cat="laptops"><span>💻</span><b>لابتوبات</b><small>Laptops</small></button>
+          <button class="category" data-cat="pcs"><span>🖥️</span><b>PC & Gaming</b><small>Desktops</small></button>
+          <button class="category" data-cat="components"><span>🧩</span><b>قطع الكمبيوتر</b><small>Components</small></button>
+          <button class="category" data-cat="monitors"><span>🎯</span><b>الشاشات</b><small>Monitors</small></button>
+          <button class="category" data-cat="accessories"><span>⌨️</span><b>إكسسوارات</b><small>Accessories</small></button>
+          <button class="category" data-cat="other"><span>⚡</span><b>منتجات أخرى</b><small>More Tech</small></button>
+        </div>
+      </div>
+    </section>
+
+    <section id="products" class="section products-section">
+      <div class="container">
+        <div class="section-head">
+          <div><span class="eyebrow">PC ZONE STORE</span><h2>أحدث المنتجات</h2></div>
+          <a class="text-link" href="#products">عرض الكل ←</a>
+        </div>
+        <div class="toolbar">
+          <div class="search"><span>⌕</span><input id="search" placeholder="ابحث عن لابتوب، كارت شاشة، شاشة..."></div>
+          <select id="sort"><option value="featured">الأحدث</option><option value="low">السعر: الأقل</option><option value="high">السعر: الأعلى</option></select>
+        </div>
+        <div id="productGrid" class="product-grid"></div>
+        <div id="empty" class="empty hidden">لا توجد منتجات مطابقة لبحثك.</div>
+      </div>
+    </section>
+
+    <section class="banner">
+      <div class="container banner-inner">
+        <div><span class="eyebrow">NEED HELP?</span><h2>مش عارف تختار جهازك؟</h2><p>ابعتلنا احتياجك وميزانيتك ونساعدك تختار الأنسب.</p></div>
+        <a id="helpWhatsapp" class="btn primary" target="_blank">تواصل على WhatsApp</a>
+      </div>
+    </section>
+  </main>
+
+  <footer id="contact">
+    <div class="container footer">
+      <div><a class="brand" href="#"><span>PC</span> ZONE</a><p>Computers • Gaming • Components • Accessories</p></div>
+      <div><b>PC Zone</b><p>متجر متخصص في حلول الكمبيوتر والتكنولوجيا.</p></div>
+      <div><b>تواصل</b><p>WhatsApp: <span id="phoneText">ضع رقمك في script.js</span></p></div>
+    </div>
+  </footer>
+
+  <div id="modal" class="modal hidden">
+    <div class="modal-box">
+      <button class="close" id="closeModal">×</button>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
