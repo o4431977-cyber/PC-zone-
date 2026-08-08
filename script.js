@@ -1,12 +1,13 @@
 // ==========================================
-// PC ZONE - Supabase Store
+// PC ZONE - Full Supabase Store
 // ==========================================
 
-// WhatsApp رقم المتجر
-// اكتب الرقم بصيغة دولية بدون + أو مسافات
+// ==========================
+// SETTINGS
+// ==========================
+
 const WHATSAPP_NUMBER = "201000000000";
 
-// Supabase
 const SUPABASE_URL =
   "https://sbvwosejthyuotcsmvki.supabase.co";
 
@@ -14,35 +15,9 @@ const SUPABASE_KEY =
   "sb_publishable_Qok45Wzs4mVmPwW8jlaxzA_qxuoSWdU";
 
 
-// ==========================================
-// Supabase Request
-// ==========================================
-
-async function getProductsFromSupabase() {
-  const response = await fetch(
-    `${SUPABASE_URL}/rest/v1/products?select=*&order=created_at.desc`,
-    {
-      method: "GET",
-      headers: {
-        apikey: SUPABASE_KEY,
-        Authorization: `Bearer ${SUPABASE_KEY}`
-      }
-    }
-  );
-
-  if (!response.ok) {
-    throw new Error(
-      `Supabase Error: ${response.status}`
-    );
-  }
-
-  return await response.json();
-}
-
-
-// ==========================================
-// Category Names
-// ==========================================
+// ==========================
+// CATEGORY NAMES
+// ==========================
 
 const categoryNames = {
   laptops: "لابتوبات",
@@ -54,27 +29,138 @@ const categoryNames = {
 };
 
 
-// ==========================================
-// Global Products
-// ==========================================
+// ==========================
+// GLOBAL
+// ==========================
 
 let products = [];
+let activeProduct = null;
 
 window.activeCategory = null;
 
 
-// ==========================================
-// Money
-// ==========================================
+// ==========================
+// MONEY
+// ==========================
 
 function money(value) {
   return Number(value || 0).toLocaleString("en-US") + " ج.م";
 }
 
 
-// ==========================================
-// WhatsApp
-// ==========================================
+// ==========================
+// SUPABASE REQUEST
+// ==========================
+
+async function supabaseRequest(
+  table,
+  options = {}
+) {
+
+  const {
+    method = "GET",
+    query = "",
+    body = null
+  } = options;
+
+  const response = await fetch(
+    `${SUPABASE_URL}/rest/v1/${table}${query}`,
+    {
+      method,
+
+      headers: {
+        apikey: SUPABASE_KEY,
+        Authorization: `Bearer ${SUPABASE_KEY}`,
+
+        ...(body
+          ? {
+              "Content-Type": "application/json",
+              Prefer: "return=representation"
+            }
+          : {})
+      },
+
+      ...(body
+        ? {
+            body: JSON.stringify(body)
+          }
+        : {})
+    }
+  );
+
+  if (!response.ok) {
+
+    const text =
+      await response.text();
+
+    throw new Error(
+      `${table} ${response.status}: ${text}`
+    );
+
+  }
+
+  if (response.status === 204) {
+    return null;
+  }
+
+  return await response.json();
+}
+
+
+// ==========================
+// LOAD PRODUCTS
+// ==========================
+
+async function getProductsFromSupabase() {
+
+  return await supabaseRequest(
+    "products",
+    {
+      query:
+        "?select=*&order=created_at.desc"
+    }
+  );
+
+}
+
+
+// ==========================
+// LOAD PRODUCT IMAGES
+// ==========================
+
+async function getProductImages(productId) {
+
+  return await supabaseRequest(
+    "product_images",
+    {
+      query:
+        `?select=*&product_id=eq.${productId}&order=sort_order.asc,created_at.asc`
+    }
+  );
+
+}
+
+
+// ==========================
+// LOAD COMMENTS
+// ==========================
+
+async function getProductComments(productId) {
+
+  return await supabaseRequest(
+    "product_comments",
+    {
+      query:
+        `?select=*&product_id=eq.${productId}&approved=eq.true&order=created_at.desc`
+    }
+  );
+
+}
+
+
+// ==========================
+// WHATSAPP
+// ==========================
 
 function whatsappLink(product) {
 
@@ -90,12 +176,13 @@ function whatsappLink(product) {
 هل المنتج متوفر؟`;
 
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+
 }
 
 
-// ==========================================
-// Product Image
-// ==========================================
+// ==========================
+// PRODUCT IMAGE
+// ==========================
 
 function productImage(product) {
 
@@ -103,8 +190,8 @@ function productImage(product) {
 
     return `
       <img
-        src="${product.image_url}"
-        alt="${product.name}"
+        src="${escapeHtml(product.image_url)}"
+        alt="${escapeHtml(product.name || "PC Zone Product")}"
         loading="lazy"
       >
     `;
@@ -116,12 +203,29 @@ function productImage(product) {
       💻
     </div>
   `;
+
 }
 
 
-// ==========================================
-// Render Products
-// ==========================================
+// ==========================
+// ESCAPE HTML
+// ==========================
+
+function escapeHtml(value) {
+
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+
+}
+
+
+// ==========================
+// RENDER PRODUCTS
+// ==========================
 
 function render() {
 
@@ -150,46 +254,42 @@ function render() {
   let filtered = [...products];
 
 
-  // ==========================
-  // Category
-  // ==========================
+  // CATEGORY
 
   if (window.activeCategory) {
 
-    filtered = filtered.filter(
-      product =>
-        product.category ===
-        window.activeCategory
-    );
+    filtered =
+      filtered.filter(
+        product =>
+          product.category ===
+          window.activeCategory
+      );
 
   }
 
 
-  // ==========================
-  // Search
-  // ==========================
+  // SEARCH
 
   if (search) {
 
-    filtered = filtered.filter(product => {
+    filtered =
+      filtered.filter(product => {
 
-      const text = `
-        ${product.name || ""}
-        ${product.description || ""}
-        ${product.specs || ""}
-        ${categoryNames[product.category] || ""}
-      `.toLowerCase();
+        const text = `
+          ${product.name || ""}
+          ${product.description || ""}
+          ${product.specs || ""}
+          ${categoryNames[product.category] || ""}
+        `.toLowerCase();
 
-      return text.includes(search);
+        return text.includes(search);
 
-    });
+      });
 
   }
 
 
-  // ==========================
-  // Sorting
-  // ==========================
+  // SORT
 
   if (sort) {
 
@@ -229,10 +329,6 @@ function render() {
   grid.innerHTML = "";
 
 
-  // ==========================
-  // Empty
-  // ==========================
-
   if (empty) {
 
     empty.classList.toggle(
@@ -243,17 +339,12 @@ function render() {
   }
 
 
-  // ==========================
-  // Products
-  // ==========================
-
   filtered.forEach(product => {
 
     const article =
       document.createElement("article");
 
-    article.className =
-      "product";
+    article.className = "product";
 
 
     article.innerHTML = `
@@ -283,16 +374,13 @@ function render() {
           }
         </span>
 
-
         <h3>
-          ${product.name}
+          ${escapeHtml(product.name)}
         </h3>
 
-
         <div class="spec">
-          ${product.specs || ""}
+          ${escapeHtml(product.specs || "")}
         </div>
-
 
         ${
           product.old_price &&
@@ -308,11 +396,9 @@ function render() {
           ""
         }
 
-
         <div class="price">
           ${money(product.price)}
         </div>
-
 
         <div class="product-actions">
 
@@ -322,7 +408,6 @@ function render() {
           >
             التفاصيل
           </button>
-
 
           ${
             product.stock
@@ -351,9 +436,7 @@ function render() {
         </div>
 
       </div>
-
     `;
-
 
     grid.appendChild(article);
 
@@ -362,34 +445,247 @@ function render() {
 }
 
 
-// ==========================================
-// Product Details
-// ==========================================
+// ==========================
+// SHOW PRODUCT DETAILS
+// ==========================
 
-function showDetails(id) {
+async function showDetails(id) {
 
   const product =
     products.find(
-      item => Number(item.id) === Number(id)
+      item =>
+        Number(item.id) ===
+        Number(id)
     );
 
-
   if (!product) return;
+
+
+  activeProduct = product;
 
 
   const modal =
     document.getElementById("modal");
 
   const content =
-    document.getElementById("modalContent");
+    document.getElementById(
+      "modalContent"
+    );
+
+  if (!modal || !content) return;
+
+
+  modal.classList.remove("hidden");
+
+
+  content.innerHTML = `
+    <div style="text-align:center;padding:40px">
+      جاري تحميل تفاصيل المنتج...
+    </div>
+  `;
+
+
+  try {
+
+    const [
+      images,
+      comments
+    ] = await Promise.all([
+      getProductImages(product.id),
+      getProductComments(product.id)
+    ]);
+
+
+    renderProductDetails(
+      product,
+      images,
+      comments
+    );
+
+  }
+
+  catch (error) {
+
+    console.error(error);
+
+    renderProductDetails(
+      product,
+      [],
+      []
+    );
+
+  }
+
+}
+
+
+// ==========================
+// PRODUCT DETAILS UI
+// ==========================
+
+function renderProductDetails(
+  product,
+  images,
+  comments
+) {
+
+  const content =
+    document.getElementById(
+      "modalContent"
+    );
+
+  if (!content) return;
+
+
+  let galleryImages = [];
+
+
+  if (product.image_url) {
+
+    galleryImages.push({
+      image_url:
+        product.image_url
+    });
+
+  }
+
+
+  galleryImages =
+    galleryImages.concat(images);
+
+
+  const uniqueImages =
+    galleryImages.filter(
+      (image, index, array) =>
+        index ===
+        array.findIndex(
+          item =>
+            item.image_url ===
+            image.image_url
+        )
+    );
+
+
+  const commentsHtml =
+    comments.length
+      ?
+      comments.map(comment => {
+
+        const stars =
+          "★".repeat(
+            Number(comment.rating)
+          ) +
+          "☆".repeat(
+            5 -
+            Number(comment.rating)
+          );
+
+        return `
+          <div class="comment-item">
+
+            <div class="comment-top">
+
+              <strong>
+                ${escapeHtml(comment.name)}
+              </strong>
+
+              <span class="comment-stars">
+                ${stars}
+              </span>
+
+            </div>
+
+            <p>
+              ${escapeHtml(comment.comment)}
+            </p>
+
+          </div>
+        `;
+
+      }).join("")
+      :
+      `
+        <div class="no-comments">
+          لسه مفيش تقييمات للمنتج.
+          كن أول واحد يضيف تقييم ⭐
+        </div>
+      `;
+
+
+  const galleryHtml =
+    uniqueImages.length
+      ?
+      `
+      <div class="product-gallery">
+
+        <div class="main-gallery-image">
+
+          <img
+            id="mainProductImage"
+            src="${escapeHtml(
+              uniqueImages[0].image_url
+            )}"
+            alt="${escapeHtml(product.name)}"
+          >
+
+        </div>
+
+        ${
+          uniqueImages.length > 1
+          ?
+          `
+          <div class="gallery-thumbs">
+
+            ${uniqueImages.map(
+              (image, index) =>
+                `
+                <button
+                  class="gallery-thumb ${
+                    index === 0
+                      ? "active"
+                      : ""
+                  }"
+                  onclick="changeProductImage(
+                    '${escapeHtml(
+                      image.image_url
+                    )}',
+                    this
+                  )"
+                >
+                  <img
+                    src="${escapeHtml(
+                      image.image_url
+                    )}"
+                    alt=""
+                  >
+                </button>
+                `
+            ).join("")}
+
+          </div>
+          `
+          :
+          ""
+        }
+
+      </div>
+      `
+      :
+      `
+      <div class="detail-img">
+        ${productImage(product)}
+      </div>
+      `;
 
 
   content.innerHTML = `
 
     <div class="detail">
 
-      <div class="detail-img">
-        ${productImage(product)}
+      <div>
+
+        ${galleryHtml}
+
       </div>
 
 
@@ -405,392 +701,11 @@ function showDetails(id) {
 
 
         <h2>
-          ${product.name}
+          ${escapeHtml(product.name)}
         </h2>
 
 
         ${
           product.old_price &&
           Number(product.old_price) >
-          Number(product.price)
-          ?
-          `
-          <div class="old-price">
-            ${money(product.old_price)}
-          </div>
-          `
-          :
-          ""
-        }
-
-
-        <div class="price">
-          ${money(product.price)}
-        </div>
-
-
-        ${
-          product.description
-          ?
-          `
-          <p>
-            ${product.description}
-          </p>
-          `
-          :
-          ""
-        }
-
-
-        ${
-          product.specs
-          ?
-          `
-          <div class="spec detail-spec">
-            ${product.specs}
-          </div>
-          `
-          :
-          ""
-        }
-
-
-        <p>
-          ${
-            product.stock
-              ? "🟢 المنتج متوفر حاليًا"
-              : "🔴 المنتج غير متوفر حاليًا"
-          }
-        </p>
-
-
-        ${
-          product.stock
-          ?
-          `
-          <a
-            class="btn primary"
-            href="${whatsappLink(product)}"
-            target="_blank"
-            rel="noopener"
-          >
-            اطلب عبر WhatsApp
-          </a>
-          `
-          :
-          ""
-        }
-
-      </div>
-
-    </div>
-
-  `;
-
-
-  modal.classList.remove("hidden");
-
-}
-
-
-// ==========================================
-// Close Modal
-// ==========================================
-
-const closeModal =
-  document.getElementById("closeModal");
-
-const modal =
-  document.getElementById("modal");
-
-
-if (closeModal) {
-
-  closeModal.addEventListener(
-    "click",
-    () => {
-
-      modal.classList.add("hidden");
-
-    }
-  );
-
-}
-
-
-if (modal) {
-
-  modal.addEventListener(
-    "click",
-    event => {
-
-      if (
-        event.target === modal
-      ) {
-
-        modal.classList.add("hidden");
-
-      }
-
-    }
-  );
-
-}
-
-
-// ==========================================
-// Search
-// ==========================================
-
-const search =
-  document.getElementById("search");
-
-if (search) {
-
-  search.addEventListener(
-    "input",
-    render
-  );
-
-}
-
-
-// ==========================================
-// Sort
-// ==========================================
-
-const sort =
-  document.getElementById("sort");
-
-if (sort) {
-
-  sort.addEventListener(
-    "change",
-    render
-  );
-
-}
-
-
-// ==========================================
-// Categories
-// ==========================================
-
-document
-  .querySelectorAll(".category")
-  .forEach(button => {
-
-    button.addEventListener(
-      "click",
-      () => {
-
-        const category =
-          button.dataset.cat;
-
-
-        if (
-          window.activeCategory ===
-          category
-        ) {
-
-          window.activeCategory =
-            null;
-
-        }
-
-        else {
-
-          window.activeCategory =
-            category;
-
-        }
-
-
-        render();
-
-
-        const productsSection =
-          document.getElementById(
-            "products"
-          );
-
-
-        if (productsSection) {
-
-          productsSection.scrollIntoView({
-            behavior: "smooth"
-          });
-
-        }
-
-      }
-    );
-
-  });
-
-
-// ==========================================
-// Theme
-// ==========================================
-
-const themeBtn =
-  document.getElementById("themeBtn");
-
-if (themeBtn) {
-
-  themeBtn.addEventListener(
-    "click",
-    () => {
-
-      document.body.classList.toggle(
-        "light"
-      );
-
-      localStorage.setItem(
-        "pczone_theme",
-        document.body.classList.contains(
-          "light"
-        )
-          ? "light"
-          : "dark"
-      );
-
-    }
-  );
-
-}
-
-
-// Restore Theme
-
-if (
-  localStorage.getItem(
-    "pczone_theme"
-  ) === "light"
-) {
-
-  document.body.classList.add(
-    "light"
-  );
-
-}
-
-
-// ==========================================
-// WhatsApp Help Button
-// ==========================================
-
-const helpWhatsapp =
-  document.getElementById(
-    "helpWhatsapp"
-  );
-
-
-if (helpWhatsapp) {
-
-  const message =
-`السلام عليكم 👋
-
-محتاج مساعدة في اختيار جهاز كمبيوتر أو لابتوب.
-
-الميزانية:
-الاستخدام:
-`;
-
-  helpWhatsapp.href =
-    `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-
-}
-
-
-// ==========================================
-// Phone
-// ==========================================
-
-const phoneText =
-  document.getElementById(
-    "phoneText"
-  );
-
-
-if (phoneText) {
-
-  phoneText.textContent =
-    WHATSAPP_NUMBER;
-
-}
-
-
-// ==========================================
-// Load Products
-// ==========================================
-
-async function loadProducts() {
-
-  const grid =
-    document.getElementById(
-      "productGrid"
-    );
-
-
-  try {
-
-    if (grid) {
-
-      grid.innerHTML = `
-        <div style="
-          width:100%;
-          text-align:center;
-          padding:40px;
-        ">
-          جاري تحميل المنتجات...
-        </div>
-      `;
-
-    }
-
-
-    products =
-      await getProductsFromSupabase();
-
-
-    render();
-
-
-  }
-
-  catch (error) {
-
-    console.error(error);
-
-
-    if (grid) {
-
-      grid.innerHTML = `
-        <div style="
-          width:100%;
-          text-align:center;
-          padding:40px;
-        ">
-          <h3>
-            حدث خطأ في تحميل المنتجات
-          </h3>
-
-          <p>
-            تأكد من اتصال قاعدة البيانات.
-          </p>
-        </div>
-      `;
-
-    }
-
-  }
-
-}
-
-
-// ==========================================
-// Start
-// ==========================================
-
-loadProducts();
+          Number(product
