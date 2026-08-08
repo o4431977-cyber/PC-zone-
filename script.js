@@ -559,6 +559,7 @@ testSupabase();
 // ===============================
 
 render();
+alert("TEST PC ZONE");
 async function testSupabaseConnection() {
   try {
     const response = await fetch(
