@@ -56,8 +56,6 @@ async function getProductsFromSupabase() {
   const url =
     `${SUPABASE_URL}/rest/v1/products?select=*&order=created_at.desc`;
 
-  console.log("Supabase URL:", url);
-
   const response = await fetch(url, {
     method: "GET",
     headers: {
@@ -66,6 +64,20 @@ async function getProductsFromSupabase() {
       "Content-Type": "application/json"
     }
   });
+
+  const text = await response.text();
+
+  console.log("Supabase status:", response.status);
+  console.log("Supabase response:", text);
+
+  if (!response.ok) {
+    throw new Error(
+      `Supabase Error ${response.status}: ${text}`
+    );
+  }
+
+  return JSON.parse(text);
+}
 
   const text = await response.text();
 
