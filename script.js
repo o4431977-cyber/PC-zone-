@@ -1,6 +1,12 @@
 // PC Zone Store
 // غيّر رقم الواتساب هنا إلى رقم المتجر بصيغة دولية بدون + أو مسافات.
-const WHATSAPP_NUMBER = "201000000000";
+const WHATSAPP_NUMBER = "201095605815";
+
+const SUPABASE_URL =
+  "https://sbvwosejthyuotcsmvki.supabase.co";
+
+const SUPABASE_KEY =
+  "sb_publishable_Qok45Wzs4mVmPwW8jlaxzA_qxuoSWdU";
 
 // المنتجات الافتراضية — أمثلة فقط
 const defaultProducts = [
@@ -521,7 +527,33 @@ if (themeBtn) {
 
 }
 
+async function testSupabase() {
+  try {
+    const response = await fetch(
+      `${SUPABASE_URL}/rest/v1/products?select=*`,
+      {
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: `Bearer ${SUPABASE_KEY}`
+        }
+      }
+    );
 
+    const data = await response.json();
+
+    console.log("Supabase Products:", data);
+
+  } catch (error) {
+
+    console.error(
+      "Supabase Error:",
+      error
+    );
+
+  }
+}
+
+testSupabase();
 // ===============================
 // Initial Render
 // ===============================
