@@ -1,34 +1,11 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-
+<!DOCTYPE html><html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
-
-  <title>PC Zone | Admin</title>
-
-  <link
-    rel="preconnect"
-    href="https://fonts.googleapis.com"
-  >
-
-  <link
-    rel="preconnect"
-    href="https://fonts.gstatic.com"
-    crossorigin
-  >
-
-  <link
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">  <title>PC Zone | Admin</title>  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>  <link
     href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap"
     rel="stylesheet"
-  >
-
-  <style>
-
+  >  <style>
     * {
       box-sizing: border-box;
     }
@@ -36,20 +13,8 @@
     body {
       margin: 0;
       font-family: "Cairo", sans-serif;
-      background: #080a0d;
+      background: #0b0d10;
       color: #fff;
-    }
-
-    button,
-    input,
-    textarea,
-    select {
-      font-family: inherit;
-    }
-
-    button {
-      border: 0;
-      cursor: pointer;
     }
 
     .container {
@@ -57,13 +22,17 @@
       margin: auto;
     }
 
-    .hidden {
-      display: none !important;
+    header {
+      padding: 20px 0;
+      border-bottom: 1px solid #252a31;
     }
 
-    /* =========================
-       LOGO
-    ========================= */
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+    }
 
     .logo {
       font-size: 25px;
@@ -75,73 +44,25 @@
       color: #ff6b00;
     }
 
-    /* =========================
-       HEADER
-    ========================= */
-
-    header {
-      padding: 18px 0;
-      border-bottom: 1px solid #242a31;
-      background: #0d1014;
-    }
-
-    .nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 15px;
+    button {
+      border: 0;
+      cursor: pointer;
+      font-family: inherit;
     }
 
     .logout {
-      background: #242a31;
+      background: #252a31;
       color: #fff;
       padding: 10px 18px;
       border-radius: 10px;
-      transition: .2s;
     }
 
     .logout:hover {
       background: #ff6b00;
     }
 
-    /* =========================
-       LOGIN
-    ========================= */
-
-    #loginPage {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-
-    .login-box {
-      width: min(430px, 100%);
-      background: #11151a;
-      border: 1px solid #252c34;
-      border-radius: 22px;
-      padding: 30px;
-      box-shadow: 0 20px 60px rgba(0,0,0,.35);
-    }
-
-    .login-box h1 {
-      margin: 18px 0 5px;
-      font-size: 28px;
-    }
-
-    .login-box > p {
-      color: #9ca3af;
-      margin-top: 0;
-      margin-bottom: 25px;
-    }
-
-    /* =========================
-       MAIN
-    ========================= */
-
     main {
-      padding: 35px 0 70px;
+      padding: 35px 0 60px;
     }
 
     .title {
@@ -154,17 +75,13 @@
     }
 
     .title p {
-      margin: 0;
       color: #9ca3af;
+      margin: 0;
     }
 
-    /* =========================
-       CARDS
-    ========================= */
-
     .card {
-      background: #11151a;
-      border: 1px solid #252c34;
+      background: #12161b;
+      border: 1px solid #252a31;
       border-radius: 18px;
       padding: 25px;
       margin-bottom: 25px;
@@ -172,12 +89,8 @@
 
     .card h2 {
       margin-top: 0;
-      font-size: 21px;
+      font-size: 22px;
     }
-
-    /* =========================
-       FORM
-    ========================= */
 
     .form-grid {
       display: grid;
@@ -198,7 +111,6 @@
     label {
       font-size: 14px;
       color: #cbd5e1;
-      font-weight: 600;
     }
 
     input,
@@ -206,10 +118,11 @@
     select {
       width: 100%;
       border: 1px solid #303740;
-      background: #080a0d;
+      background: #0b0d10;
       color: #fff;
       padding: 13px;
       border-radius: 10px;
+      font-family: inherit;
       outline: none;
     }
 
@@ -220,82 +133,20 @@
     }
 
     textarea {
-      min-height: 110px;
+      min-height: 100px;
       resize: vertical;
-    }
-
-    select {
-      cursor: pointer;
-    }
-
-    /* =========================
-       IMAGE UPLOAD
-    ========================= */
-
-    .upload-box {
-      border: 1px dashed #3a424c;
-      border-radius: 14px;
-      padding: 18px;
-      background: #0b0e12;
-    }
-
-    .upload-box input[type="file"] {
-      padding: 10px;
-      cursor: pointer;
-    }
-
-    .image-preview {
-      display: none;
-      margin-top: 15px;
-      position: relative;
-      width: 180px;
-    }
-
-    .image-preview.show {
-      display: block;
-    }
-
-    .image-preview img {
-      width: 180px;
-      height: 130px;
-      object-fit: contain;
-      border-radius: 12px;
-      background: #080a0d;
-      border: 1px solid #303740;
-    }
-
-    .upload-status {
-      display: block;
-      margin-top: 8px;
-      color: #9ca3af;
-      font-size: 13px;
-    }
-
-    /* =========================
-       CHECKBOX
-    ========================= */
-
-    .check-row {
-      display: flex;
-      gap: 25px;
-      flex-wrap: wrap;
-      margin-top: 5px;
     }
 
     .checkbox {
       display: flex;
       align-items: center;
       gap: 8px;
+      margin-top: 5px;
     }
 
     .checkbox input {
       width: auto;
-      accent-color: #ff6b00;
     }
-
-    /* =========================
-       BUTTONS
-    ========================= */
 
     .actions {
       display: flex;
@@ -308,7 +159,6 @@
       padding: 12px 22px;
       border-radius: 10px;
       font-weight: 700;
-      transition: .2s;
     }
 
     .primary {
@@ -317,34 +167,13 @@
     }
 
     .secondary {
-      background: #252c34;
+      background: #252a31;
       color: #fff;
     }
 
     .btn:hover {
-      transform: translateY(-1px);
-      opacity: .9;
+      opacity: .85;
     }
-
-    /* =========================
-       MESSAGES
-    ========================= */
-
-    .error {
-      color: #f87171;
-      margin-top: 12px;
-      font-size: 14px;
-    }
-
-    .success {
-      color: #4ade80;
-      margin-top: 12px;
-      font-size: 14px;
-    }
-
-    /* =========================
-       PRODUCTS
-    ========================= */
 
     .products {
       display: grid;
@@ -357,26 +186,9 @@
       justify-content: space-between;
       gap: 15px;
       padding: 15px;
-      background: #090c10;
-      border: 1px solid #252c34;
-      border-radius: 14px;
-    }
-
-    .product-main {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      min-width: 0;
-    }
-
-    .product-image {
-      width: 75px;
-      height: 65px;
-      object-fit: contain;
-      background: #11151a;
-      border-radius: 9px;
-      border: 1px solid #303740;
-      flex-shrink: 0;
+      background: #0b0d10;
+      border: 1px solid #252a31;
+      border-radius: 13px;
     }
 
     .product-info {
@@ -401,7 +213,7 @@
     }
 
     .product-actions button {
-      padding: 8px 13px;
+      padding: 8px 12px;
       border-radius: 8px;
       color: #fff;
     }
@@ -414,12 +226,47 @@
       background: #b91c1c;
     }
 
-    /* =========================
-       MOBILE
-    ========================= */
+    .hidden {
+      display: none !important;
+    }
+
+    #loginPage {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .login-box {
+      width: min(420px, 100%);
+      background: #12161b;
+      border: 1px solid #252a31;
+      border-radius: 20px;
+      padding: 30px;
+    }
+
+    .login-box h1 {
+      margin-top: 0;
+    }
+
+    .login-box .field {
+      margin-bottom: 15px;
+    }
+
+    .error {
+      color: #f87171;
+      margin-top: 12px;
+      font-size: 14px;
+    }
+
+    .success {
+      color: #4ade80;
+      margin-top: 12px;
+      font-size: 14px;
+    }
 
     @media (max-width: 700px) {
-
       .form-grid {
         grid-template-columns: 1fr;
       }
@@ -433,10 +280,6 @@
         align-items: stretch;
       }
 
-      .product-main {
-        align-items: flex-start;
-      }
-
       .product-actions {
         width: 100%;
       }
@@ -444,141 +287,81 @@
       .product-actions button {
         flex: 1;
       }
-
-      .title h1 {
-        font-size: 24px;
-      }
-
     }
+  </style></head><body><section id="loginPage">  <div class="login-box"><div class="logo">
+  <span>PC</span> ZONE
+</div>
 
-  </style>
-</head>
+<h1>لوحة التحكم</h1>
 
+<p>
+  سجل الدخول لإدارة منتجات المتجر.
+</p>
 
-<body>
+<form id="loginForm">
 
+  <div class="field">
 
-<!-- =====================================================
-     LOGIN
-===================================================== -->
+    <label>البريد الإلكتروني</label>
 
-<section id="loginPage">
-
-  <div class="login-box">
-
-    <div class="logo">
-      <span>PC</span> ZONE
-    </div>
-
-    <h1>لوحة التحكم</h1>
-
-    <p>
-      سجل الدخول لإدارة منتجات المتجر.
-    </p>
-
-    <form id="loginForm">
-
-      <div class="field">
-
-        <label>
-          البريد الإلكتروني
-        </label>
-
-        <input
-          id="email"
-          type="email"
-          required
-          autocomplete="email"
-        >
-
-      </div>
-
-
-      <div class="field">
-
-        <label>
-          كلمة المرور
-        </label>
-
-        <input
-          id="password"
-          type="password"
-          required
-          autocomplete="current-password"
-        >
-
-      </div>
-
-
-      <button
-        class="btn primary"
-        type="submit"
-        style="width:100%; margin-top:10px;"
-      >
-        تسجيل الدخول
-      </button>
-
-
-      <div id="loginMessage"></div>
-
-    </form>
-
-  </div>
-
-</section>
-
-
-
-<!-- =====================================================
-     ADMIN PAGE
-===================================================== -->
-
-<div id="adminPage" class="hidden">
-
-
-<header>
-
-  <div class="container nav">
-
-    <div class="logo">
-      <span>PC</span> ZONE
-    </div>
-
-    <button
-      id="logoutBtn"
-      class="logout"
+    <input
+      id="email"
+      type="email"
+      required
+      autocomplete="email"
     >
-      تسجيل الخروج
-    </button>
 
   </div>
 
-</header>
+  <div class="field">
 
+    <label>كلمة المرور</label>
 
+    <input
+      id="password"
+      type="password"
+      required
+      autocomplete="current-password"
+    >
 
-<main>
+  </div>
 
-<div class="container">
+  <button
+    class="btn primary"
+    type="submit"
+    style="width:100%;"
+  >
+    تسجيل الدخول
+  </button>
 
+  <div id="loginMessage"></div>
+
+</form>
+
+  </div></section><div id="adminPage" class="hidden">  <header><div class="container nav">
+
+  <div class="logo">
+    <span>PC</span> ZONE
+  </div>
+
+  <button id="logoutBtn" class="logout">
+    تسجيل الخروج
+  </button>
+
+</div>
+
+  </header>  <main><div class="container">
 
   <div class="title">
 
-    <h1>
-      لوحة إدارة المنتجات 🛠️
-    </h1>
+    <h1>لوحة إدارة المنتجات 🛠️</h1>
 
     <p>
-      أضف وعدّل واحذف منتجات PC Zone من مكان واحد.
+      أضف وعدّل واحذف منتجات PC Zone.
     </p>
 
   </div>
 
-
-
-  <!-- =====================================================
-       ADD PRODUCT
-  ===================================================== -->
 
   <section class="card">
 
@@ -586,26 +369,18 @@
       إضافة منتج جديد
     </h2>
 
-
     <form id="productForm">
-
 
       <input
         type="hidden"
         id="productId"
       >
 
-
       <div class="form-grid">
-
-
-        <!-- NAME -->
 
         <div class="field">
 
-          <label>
-            اسم المنتج *
-          </label>
+          <label>اسم المنتج *</label>
 
           <input
             id="name"
@@ -616,46 +391,38 @@
         </div>
 
 
-
-        <!-- CATEGORY -->
-
         <div class="field">
 
-          <label>
-            القسم *
-          </label>
+          <label>القسم *</label>
 
-          <select
-            id="category"
-            required
-          >
+          <select id="category" required>
 
             <option value="">
               اختر القسم
             </option>
 
             <option value="laptops">
-              💻 لابتوبات
+              لابتوبات
             </option>
 
             <option value="pcs">
-              🖥️ PC & Gaming
+              PC & Gaming
             </option>
 
             <option value="components">
-              🧩 قطع الكمبيوتر
+              قطع الكمبيوتر
             </option>
 
             <option value="monitors">
-              🎯 الشاشات
+              الشاشات
             </option>
 
             <option value="accessories">
-              ⌨️ إكسسوارات
+              إكسسوارات
             </option>
 
             <option value="other">
-              ⚡ منتجات أخرى
+              منتجات أخرى
             </option>
 
           </select>
@@ -663,14 +430,9 @@
         </div>
 
 
-
-        <!-- PRICE -->
-
         <div class="field">
 
-          <label>
-            السعر *
-          </label>
+          <label>السعر *</label>
 
           <input
             id="price"
@@ -683,14 +445,9 @@
         </div>
 
 
-
-        <!-- OLD PRICE -->
-
         <div class="field">
 
-          <label>
-            السعر القديم
-          </label>
+          <label>السعر القديم</label>
 
           <input
             id="oldPrice"
@@ -702,63 +459,22 @@
         </div>
 
 
-
-        <!-- IMAGE -->
-
         <div class="field full">
 
-          <label>
-            صورة المنتج 📷
-          </label>
+          <label>رابط صورة المنتج</label>
 
-          <div class="upload-box">
-
-            <input
-              id="imageFile"
-              type="file"
-              accept="image/jpeg,image/png,image/webp,image/gif"
-            >
-
-            <span
-              id="uploadStatus"
-              class="upload-status"
-            >
-              اختر صورة من الموبايل
-            </span>
-
-
-            <div
-              id="imagePreview"
-              class="image-preview"
-            >
-
-              <img
-                id="previewImage"
-                alt="معاينة صورة المنتج"
-              >
-
-            </div>
-
-          </div>
-
-
-          <!-- Hidden URL -->
           <input
             id="imageUrl"
-            type="hidden"
+            type="url"
+            placeholder="https://..."
           >
 
         </div>
 
 
-
-        <!-- SPECS -->
-
         <div class="field full">
 
-          <label>
-            المواصفات
-          </label>
+          <label>المواصفات</label>
 
           <textarea
             id="specs"
@@ -768,30 +484,17 @@
         </div>
 
 
-
-        <!-- DESCRIPTION -->
-
         <div class="field full">
 
-          <label>
-            وصف المنتج
-          </label>
+          <label>وصف المنتج</label>
 
           <textarea
             id="description"
-            placeholder="اكتب وصفًا مختصرًا وجذابًا للمنتج..."
+            placeholder="اكتب وصفًا مختصرًا للمنتج..."
           ></textarea>
 
         </div>
 
-
-      </div>
-
-
-
-      <!-- CHECKBOXES -->
-
-      <div class="check-row">
 
         <div class="checkbox">
 
@@ -824,19 +527,14 @@
       </div>
 
 
-
-      <!-- BUTTONS -->
-
       <div class="actions">
 
         <button
           class="btn primary"
           type="submit"
-          id="saveBtn"
         >
           حفظ المنتج
         </button>
-
 
         <button
           id="cancelEdit"
@@ -851,23 +549,16 @@
 
       <div id="formMessage"></div>
 
-
     </form>
 
   </section>
 
-
-
-  <!-- =====================================================
-       PRODUCTS LIST
-  ===================================================== -->
 
   <section class="card">
 
     <h2>
       المنتجات الحالية
     </h2>
-
 
     <div
       id="productsList"
@@ -878,1101 +569,416 @@
 
   </section>
 
-
 </div>
 
-</main>
+  </main></div><script>
 
-</div>
+  /* ==========================================
+     SUPABASE
+  ========================================== */
 
+  const SUPABASE_URL =
+    "https://sbvwosejthyuotcsmvki.supabase.co";
 
-
-<script>
-
-
-// ======================================================
-// SUPABASE CONFIG
-// ======================================================
-
-const SUPABASE_URL =
-  "https://sbvwosejthyuotcsmvki.supabase.co";
-
-const SUPABASE_KEY =
-  "sb_publishable_Qok45Wzs4mVmPwW8jlaxzA_qxuoSWdU";
-
-const STORAGE_BUCKET =
-  "product-images";
+  const SUPABASE_KEY =
+    "sb_publishable_Qok45Wzs4mVmPwW8jlaxzA_qxuoSWdU";
 
 
-// ======================================================
-// GLOBAL
-// ======================================================
-
-let products = [];
-
-let currentImageUrl = "";
+  let products = [];
 
 
-// ======================================================
-// BASIC SUPABASE REQUEST
-// ======================================================
+  /* ==========================================
+     SESSION STORAGE
+  ========================================== */
 
-async function supabaseRequest(
-  url,
-  options = {}
-) {
+  function saveSession(session) {
 
-  const response = await fetch(
-    `${SUPABASE_URL}${url}`,
-    {
-      ...options,
+    localStorage.setItem(
+      "pczone_access_token",
+      session.access_token
+    );
 
-      headers: {
+    localStorage.setItem(
+      "pczone_refresh_token",
+      session.refresh_token
+    );
 
-        "Content-Type":
-          "application/json",
+    if (session.expires_at) {
 
-        apikey:
-          SUPABASE_KEY,
-
-        ...options.headers
-
-      }
+      localStorage.setItem(
+        "pczone_expires_at",
+        session.expires_at
+      );
 
     }
-  );
+
+  }
 
 
-  if (!response.ok) {
+  function clearSession() {
 
-    const text =
-      await response.text();
+    localStorage.removeItem(
+      "pczone_access_token"
+    );
 
-    throw new Error(
-      text ||
-      `Error ${response.status}`
+    localStorage.removeItem(
+      "pczone_refresh_token"
+    );
+
+    localStorage.removeItem(
+      "pczone_expires_at"
     );
 
   }
 
 
-  const text =
-    await response.text();
+  function getAccessToken() {
+
+    return localStorage.getItem(
+      "pczone_access_token"
+    );
+
+  }
 
 
-  return text
-    ? JSON.parse(text)
-    : null;
+  function getRefreshToken() {
 
-}
+    return localStorage.getItem(
+      "pczone_refresh_token"
+    );
+
+  }
 
 
-// ======================================================
-// LOGIN
-// ======================================================
+  /* ==========================================
+     LOGIN
+  ========================================== */
 
-async function login(
-  email,
-  password
-) {
+  async function login(email, password) {
 
-  return await supabaseRequest(
-    "/auth/v1/token?grant_type=password",
-    {
+    const response = await fetch(
+      `${SUPABASE_URL}/auth/v1/token?grant_type=password`,
+      {
+        method: "POST",
 
-      method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "apikey": SUPABASE_KEY
+        },
 
-      body: JSON.stringify({
+        body: JSON.stringify({
+          email: email,
+          password: password
+        })
+      }
+    );
 
-        email,
-        password
 
-      })
+    const data = await response.json();
+
+
+    if (!response.ok) {
+
+      throw new Error(
+        data.error_description ||
+        data.message ||
+        "فشل تسجيل الدخول"
+      );
 
     }
-  );
-
-}
 
 
-// ======================================================
-// LOGIN FORM
-// ======================================================
+    saveSession(data);
 
-document
-  .getElementById("loginForm")
-  .addEventListener(
-    "submit",
-    async event => {
+    return data;
 
-      event.preventDefault();
+  }
 
 
-      const email =
-        document.getElementById(
-          "email"
-        ).value.trim();
+  /* ==========================================
+     REFRESH SESSION
+  ========================================== */
+
+  async function refreshSession() {
+
+    const refreshToken =
+      getRefreshToken();
 
 
-      const password =
-        document.getElementById(
-          "password"
-        ).value;
+    if (!refreshToken) {
+
+      throw new Error(
+        "لا يوجد Refresh Token"
+      );
+
+    }
 
 
-      const message =
-        document.getElementById(
-          "loginMessage"
-        );
+    const response = await fetch(
+      `${SUPABASE_URL}/auth/v1/token?grant_type=refresh_token`,
+      {
+        method: "POST",
+
+        headers: {
+          "Content-Type": "application/json",
+          "apikey": SUPABASE_KEY
+        },
+
+        body: JSON.stringify({
+          refresh_token: refreshToken
+        })
+      }
+    );
 
 
-      message.className =
-        "success";
-
-      message.textContent =
-        "جاري تسجيل الدخول...";
+    const data = await response.json();
 
 
-      try {
+    if (!response.ok) {
 
-        const session =
+      clearSession();
+
+      throw new Error(
+        data.error_description ||
+        data.message ||
+        "انتهت الجلسة"
+      );
+
+    }
+
+
+    saveSession(data);
+
+    return data;
+
+  }
+
+
+  /* ==========================================
+     MAKE AUTH REQUEST
+  ========================================== */
+
+  async function authFetch(
+    url,
+    options = {},
+    retry = true
+  ) {
+
+    let token =
+      getAccessToken();
+
+
+    if (!token) {
+
+      throw new Error(
+        "لا يوجد تسجيل دخول"
+      );
+
+    }
+
+
+    const headers = {
+      ...(options.headers || {}),
+      "apikey": SUPABASE_KEY,
+      "Authorization": `Bearer ${token}`
+    };
+
+
+    let response =
+      await fetch(
+        url,
+        {
+          ...options,
+          headers
+        }
+      );
+
+
+    /*
+      لو التوكن انتهى، نعمل Refresh
+      وبعدها نعيد الطلب مرة واحدة.
+    */
+
+    if (
+      response.status === 401 ||
+      response.status === 403
+    ) {
+
+      const errorText =
+        await response.clone().text();
+
+
+      if (
+        retry &&
+        (
+          errorText.includes("JWT") ||
+          errorText.includes("exp") ||
+          errorText.includes("expired") ||
+          response.status === 401
+        )
+      ) {
+
+        try {
+
+          await refreshSession();
+
+          return await authFetch(
+            url,
+            options,
+            false
+          );
+
+        }
+
+        catch (refreshError) {
+
+          clearSession();
+
+          showLogin();
+
+          throw refreshError;
+
+        }
+
+      }
+
+    }
+
+
+    return response;
+
+  }
+
+
+  /* ==========================================
+     SHOW / HIDE PAGES
+  ========================================== */
+
+  function showAdmin() {
+
+    document
+      .getElementById("loginPage")
+      .classList.add("hidden");
+
+
+    document
+      .getElementById("adminPage")
+      .classList.remove("hidden");
+
+  }
+
+
+  function showLogin() {
+
+    document
+      .getElementById("adminPage")
+      .classList.add("hidden");
+
+
+    document
+      .getElementById("loginPage")
+      .classList.remove("hidden");
+
+  }
+
+
+  /* ==========================================
+     LOGIN FORM
+  ========================================== */
+
+  document
+    .getElementById("loginForm")
+    .addEventListener(
+      "submit",
+      async function(event) {
+
+        event.preventDefault();
+
+
+        const email =
+          document
+            .getElementById("email")
+            .value
+            .trim();
+
+
+        const password =
+          document
+            .getElementById("password")
+            .value;
+
+
+        const message =
+          document
+            .getElementById("loginMessage");
+
+
+        message.className =
+          "success";
+
+        message.textContent =
+          "جاري تسجيل الدخول...";
+
+
+        try {
+
           await login(
             email,
             password
           );
 
 
-        localStorage.setItem(
-          "pczone_access_token",
-          session.access_token
-        );
+          message.textContent =
+            "تم تسجيل الدخول بنجاح ✅";
 
 
-        localStorage.setItem(
-          "pczone_refresh_token",
-          session.refresh_token
-        );
+          showAdmin();
 
-
-        showAdmin();
-
-        await loadProducts();
-
-
-      }
-
-      catch (error) {
-
-        console.error(error);
-
-        message.className =
-          "error";
-
-        message.textContent =
-          "بيانات الدخول غير صحيحة أو حدث خطأ.";
-
-      }
-
-    }
-  );
-
-
-// ======================================================
-// AUTH HEADERS
-// ======================================================
-
-function authHeaders() {
-
-  const token =
-    localStorage.getItem(
-      "pczone_access_token"
-    );
-
-
-  return {
-
-    apikey:
-      SUPABASE_KEY,
-
-    Authorization:
-      `Bearer ${token}`
-
-  };
-
-}
-
-
-// ======================================================
-// SHOW ADMIN
-// ======================================================
-
-function showAdmin() {
-
-  document
-    .getElementById("loginPage")
-    .classList.add("hidden");
-
-
-  document
-    .getElementById("adminPage")
-    .classList.remove("hidden");
-
-}
-
-
-// ======================================================
-// IMAGE PREVIEW
-// ======================================================
-
-document
-  .getElementById("imageFile")
-  .addEventListener(
-    "change",
-    function () {
-
-      const file =
-        this.files[0];
-
-
-      if (!file) {
-
-        return;
-
-      }
-
-
-      const preview =
-        document.getElementById(
-          "previewImage"
-        );
-
-
-      const previewBox =
-        document.getElementById(
-          "imagePreview"
-        );
-
-
-      const url =
-        URL.createObjectURL(file);
-
-
-      preview.src =
-        url;
-
-
-      previewBox.classList.add(
-        "show"
-      );
-
-    }
-  );
-
-
-// ======================================================
-// UPLOAD IMAGE
-// ======================================================
-
-async function uploadImage(file) {
-
-  if (!file) {
-
-    return currentImageUrl || null;
-
-  }
-
-
-  const token =
-    localStorage.getItem(
-      "pczone_access_token"
-    );
-
-
-  if (!token) {
-
-    throw new Error(
-      "يجب تسجيل الدخول أولاً."
-    );
-
-  }
-
-
-  const extension =
-    file.name
-      .split(".")
-      .pop()
-      .toLowerCase();
-
-
-  const fileName =
-    `product-${Date.now()}-${Math.random()
-      .toString(36)
-      .substring(2, 9)}.${extension}`;
-
-
-  const uploadResponse =
-    await fetch(
-
-      `${SUPABASE_URL}/storage/v1/object/${STORAGE_BUCKET}/${fileName}`,
-
-      {
-
-        method: "POST",
-
-        headers: {
-
-          apikey:
-            SUPABASE_KEY,
-
-          Authorization:
-            `Bearer ${token}`,
-
-          "Content-Type":
-            file.type,
-
-          "x-upsert":
-            "false"
-
-        },
-
-        body:
-          file
-
-      }
-
-    );
-
-
-  if (!uploadResponse.ok) {
-
-    const error =
-      await uploadResponse.text();
-
-    console.error(
-      "Upload error:",
-      error
-    );
-
-    throw new Error(
-      error ||
-      "فشل رفع الصورة"
-    );
-
-  }
-
-
-  return (
-    `${SUPABASE_URL}` +
-    `/storage/v1/object/public/` +
-    `${STORAGE_BUCKET}/${fileName}`
-  );
-
-}
-
-
-// ======================================================
-// LOAD PRODUCTS
-// ======================================================
-
-async function loadProducts() {
-
-  const list =
-    document.getElementById(
-      "productsList"
-    );
-
-
-  list.innerHTML =
-    "جاري تحميل المنتجات...";
-
-
-  try {
-
-    const response =
-      await fetch(
-
-        `${SUPABASE_URL}/rest/v1/products?select=*&order=created_at.desc`,
-
-        {
-
-          headers:
-            authHeaders()
+          await loadProducts();
 
         }
 
-      );
+        catch (error) {
 
+          console.error(error);
 
-    if (!response.ok) {
-
-      throw new Error(
-        await response.text()
-      );
-
-    }
-
-
-    products =
-      await response.json();
-
-
-    renderProducts();
-
-
-  }
-
-  catch (error) {
-
-    console.error(error);
-
-    list.innerHTML =
-      `
-      <p class="error">
-        لم نستطع تحميل المنتجات.
-      </p>
-      `;
-
-  }
-
-}
-
-
-// ======================================================
-// RENDER PRODUCTS
-// ======================================================
-
-function renderProducts() {
-
-  const list =
-    document.getElementById(
-      "productsList"
-    );
-
-
-  if (!products.length) {
-
-    list.innerHTML =
-      `
-      <p>
-        لا توجد منتجات حتى الآن.
-      </p>
-      `;
-
-    return;
-
-  }
-
-
-  list.innerHTML =
-    products
-      .map(product => {
-
-        const image =
-          product.image_url
-            ? `
-              <img
-                class="product-image"
-                src="${escapeHtml(product.image_url)}"
-                alt="${escapeHtml(product.name)}"
-              >
-            `
-            :
-            `
-              <div
-                class="product-image"
-                style="
-                  display:flex;
-                  align-items:center;
-                  justify-content:center;
-                  font-size:25px;
-                "
-              >
-                💻
-              </div>
-            `;
-
-
-        return `
-
-          <div class="product">
-
-            <div class="product-main">
-
-              ${image}
-
-              <div class="product-info">
-
-                <h3>
-                  ${escapeHtml(product.name)}
-                </h3>
-
-                <p>
-
-                  ${Number(
-                    product.price
-                  ).toLocaleString("ar-EG")}
-
-                  ج.م
-
-                  —
-
-                  ${escapeHtml(
-                    getCategoryName(
-                      product.category
-                    )
-                  )}
-
-                </p>
-
-              </div>
-
-            </div>
-
-
-            <div class="product-actions">
-
-              <button
-                class="edit"
-                onclick="editProduct(${product.id})"
-              >
-                تعديل
-              </button>
-
-
-              <button
-                class="delete"
-                onclick="deleteProduct(${product.id})"
-              >
-                حذف
-              </button>
-
-            </div>
-
-          </div>
-
-        `;
-
-      })
-      .join("");
-
-}
-
-
-// ======================================================
-// CATEGORY NAME
-// ======================================================
-
-function getCategoryName(category) {
-
-  const categories = {
-
-    laptops:
-      "لابتوبات",
-
-    pcs:
-      "PC & Gaming",
-
-    components:
-      "قطع الكمبيوتر",
-
-    monitors:
-      "الشاشات",
-
-    accessories:
-      "إكسسوارات",
-
-    other:
-      "منتجات أخرى"
-
-  };
-
-
-  return (
-    categories[category] ||
-    category ||
-    "غير محدد"
-  );
-
-}
-
-
-// ======================================================
-// ADD / UPDATE PRODUCT
-// ======================================================
-
-document
-  .getElementById("productForm")
-  .addEventListener(
-    "submit",
-    async event => {
-
-      event.preventDefault();
-
-
-      const saveButton =
-        document.getElementById(
-          "saveBtn"
-        );
-
-
-      const message =
-        document.getElementById(
-          "formMessage"
-        );
-
-
-      const id =
-        document.getElementById(
-          "productId"
-        ).value;
-
-
-      try {
-
-        saveButton.disabled =
-          true;
-
-
-        saveButton.textContent =
-          "جاري الحفظ...";
-
-
-        message.className =
-          "success";
-
-
-        message.textContent =
-          "جاري تجهيز المنتج...";
-
-
-        // =========================================
-        // IMAGE
-        // =========================================
-
-        const imageFile =
-          document.getElementById(
-            "imageFile"
-          ).files[0];
-
-
-        if (imageFile) {
+          message.className =
+            "error";
 
           message.textContent =
-            "جاري رفع الصورة...";
-
-
-          currentImageUrl =
-            await uploadImage(
-              imageFile
-            );
-
-
-          document.getElementById(
-            "imageUrl"
-          ).value =
-            currentImageUrl;
-
-        }
-
-
-        // =========================================
-        // PRODUCT DATA
-        // =========================================
-
-        const product = {
-
-          name:
-            document.getElementById(
-              "name"
-            ).value.trim(),
-
-
-          category:
-            document.getElementById(
-              "category"
-            ).value,
-
-
-          price:
-            Number(
-              document.getElementById(
-                "price"
-              ).value
-            ),
-
-
-          old_price:
-            Number(
-              document.getElementById(
-                "oldPrice"
-              ).value
-            ) || null,
-
-
-          image_url:
-            document.getElementById(
-              "imageUrl"
-            ).value.trim() ||
-            null,
-
-
-          specs:
-            document.getElementById(
-              "specs"
-            ).value.trim() ||
-            null,
-
-
-          description:
-            document.getElementById(
-              "description"
-            ).value.trim() ||
-            null,
-
-
-          stock:
-            document.getElementById(
-              "stock"
-            ).checked,
-
-
-          featured:
-            document.getElementById(
-              "featured"
-            ).checked
-
-        };
-
-
-        message.textContent =
-          "جاري حفظ المنتج...";
-
-
-        // =========================================
-        // UPDATE
-        // =========================================
-
-        if (id) {
-
-          const response =
-            await fetch(
-
-              `${SUPABASE_URL}/rest/v1/products?id=eq.${id}`,
-
-              {
-
-                method: "PATCH",
-
-                headers: {
-
-                  ...authHeaders(),
-
-                  "Content-Type":
-                    "application/json",
-
-                  Prefer:
-                    "return=minimal"
-
-                },
-
-                body:
-                  JSON.stringify(
-                    product
-                  )
-
-              }
-
-            );
-
-
-          if (!response.ok) {
-
-            throw new Error(
-              await response.text()
-            );
-
-          }
-
-
-          message.textContent =
-            "تم تعديل المنتج بنجاح ✅";
-
-        }
-
-
-        // =========================================
-        // INSERT
-        // =========================================
-
-        else {
-
-          const response =
-            await fetch(
-
-              `${SUPABASE_URL}/rest/v1/products`,
-
-              {
-
-                method: "POST",
-
-                headers: {
-
-                  ...authHeaders(),
-
-                  "Content-Type":
-                    "application/json",
-
-                  Prefer:
-                    "return=minimal"
-
-                },
-
-                body:
-                  JSON.stringify(
-                    product
-                  )
-
-              }
-
-            );
-
-
-          if (!response.ok) {
-
-            throw new Error(
-              await response.text()
-            );
-
-          }
-
-
-          message.textContent =
-            "تم إضافة المنتج بنجاح ✅";
-
-        }
-
-
-        await loadProducts();
-
-
-        setTimeout(
-          resetForm,
-          700
-        );
-
-
-      }
-
-      catch (error) {
-
-        console.error(error);
-
-
-        message.className =
-          "error";
-
-
-        message.textContent =
-          "حدث خطأ: " +
-          (
             error.message ||
-            "تعذر حفظ المنتج"
-          );
+            "بيانات الدخول غير صحيحة.";
+
+        }
 
       }
-
-
-      finally {
-
-        saveButton.disabled =
-          false;
-
-
-        saveButton.textContent =
-          "حفظ المنتج";
-
-      }
-
-    }
-  );
-
-
-// ======================================================
-// EDIT PRODUCT
-// ======================================================
-
-window.editProduct =
-  function(id) {
-
-    const product =
-      products.find(
-        item =>
-          Number(item.id) ===
-          Number(id)
-      );
-
-
-    if (!product) {
-
-      return;
-
-    }
-
-
-    document.getElementById(
-      "productId"
-    ).value =
-      product.id;
-
-
-    document.getElementById(
-      "name"
-    ).value =
-      product.name || "";
-
-
-    document.getElementById(
-      "category"
-    ).value =
-      product.category || "";
-
-
-    document.getElementById(
-      "price"
-    ).value =
-      product.price || "";
-
-
-    document.getElementById(
-      "oldPrice"
-    ).value =
-      product.old_price || "";
-
-
-    document.getElementById(
-      "specs"
-    ).value =
-      product.specs || "";
-
-
-    document.getElementById(
-      "description"
-    ).value =
-      product.description || "";
-
-
-    document.getElementById(
-      "stock"
-    ).checked =
-      Boolean(
-        product.stock
-      );
-
-
-    document.getElementById(
-      "featured"
-    ).checked =
-      Boolean(
-        product.featured
-      );
-
-
-    currentImageUrl =
-      product.image_url || "";
-
-
-    document.getElementById(
-      "imageUrl"
-    ).value =
-      currentImageUrl;
-
-
-    // Show old image
-
-    if (product.image_url) {
-
-      document.getElementById(
-        "previewImage"
-      ).src =
-        product.image_url;
-
-
-      document.getElementById(
-        "imagePreview"
-      ).classList.add(
-        "show"
-      );
-
-    }
-
-
-    document.getElementById(
-      "formTitle"
-    ).textContent =
-      "تعديل المنتج ✏️";
-
-
-    document.getElementById(
-      "cancelEdit"
-    ).classList.remove(
-      "hidden"
     );
 
 
-    document.getElementById(
-      "formMessage"
-    ).textContent =
-      "أنت الآن تعدل هذا المنتج.";
+  /* ==========================================
+     LOAD PRODUCTS
+  ========================================== */
 
+  async function loadProducts() {
 
-    window.scrollTo({
-
-      top: 0,
-
-      behavior:
-        "smooth"
-
-    });
-
-  };
-
-
-// ======================================================
-// DELETE PRODUCT
-// ======================================================
-
-window.deleteProduct =
-  async function(id) {
-
-    const confirmed =
-      confirm(
-        "هل أنت متأكد من حذف هذا المنتج؟"
+    const list =
+      document.getElementById(
+        "productsList"
       );
 
 
-    if (!confirmed) {
-
-      return;
-
-    }
+    list.innerHTML =
+      "جاري تحميل المنتجات...";
 
 
     try {
 
       const response =
-        await fetch(
-
-          `${SUPABASE_URL}/rest/v1/products?id=eq.${id}`,
-
+        await authFetch(
+          `${SUPABASE_URL}/rest/v1/products?select=*&order=created_at.desc`,
           {
-
-            method: "DELETE",
-
-            headers:
-              authHeaders()
-
+            method: "GET"
           }
-
         );
 
 
@@ -1985,13 +991,11 @@ window.deleteProduct =
       }
 
 
-      await loadProducts();
+      products =
+        await response.json();
 
 
-      alert(
-        "تم حذف المنتج بنجاح ✅"
-      );
-
+      renderProducts();
 
     }
 
@@ -1999,203 +1003,594 @@ window.deleteProduct =
 
       console.error(error);
 
-      alert(
-        "حدث خطأ أثناء حذف المنتج."
-      );
+      list.innerHTML =
+        `<p class="error">
+          لم نستطع تحميل المنتجات.
+          ${escapeHtml(error.message)}
+        </p>`;
 
     }
 
-  };
+  }
 
 
-// ======================================================
-// RESET FORM
-// ======================================================
+  /* ==========================================
+     RENDER PRODUCTS
+  ========================================== */
 
-function resetForm() {
+  function renderProducts() {
 
-  document
-    .getElementById(
-      "productForm"
-    )
-    .reset();
-
-
-  document.getElementById(
-    "productId"
-  ).value =
-    "";
-
-
-  document.getElementById(
-    "imageUrl"
-  ).value =
-    "";
-
-
-  document.getElementById(
-    "imageFile"
-  ).value =
-    "";
-
-
-  document.getElementById(
-    "stock"
-  ).checked =
-    true;
-
-
-  document.getElementById(
-    "featured"
-  ).checked =
-    false;
-
-
-  document.getElementById(
-    "formTitle"
-  ).textContent =
-    "إضافة منتج جديد";
-
-
-  document
-    .getElementById(
-      "cancelEdit"
-    )
-    .classList.add(
-      "hidden"
-    );
-
-
-  document.getElementById(
-    "imagePreview"
-  ).classList.remove(
-    "show"
-  );
-
-
-  document.getElementById(
-    "uploadStatus"
-  ).textContent =
-    "اختر صورة من الموبايل";
-
-
-  document.getElementById(
-    "uploadStatus"
-  ).style.color =
-    "#9ca3af";
-
-
-  document.getElementById(
-    "formMessage"
-  ).textContent =
-    "";
-
-
-  currentImageUrl =
-    "";
-
-}
-
-
-// ======================================================
-// CANCEL EDIT
-// ======================================================
-
-document
-  .getElementById(
-    "cancelEdit"
-  )
-  .addEventListener(
-    "click",
-    resetForm
-  );
-
-
-// ======================================================
-// LOGOUT
-// ======================================================
-
-document
-  .getElementById(
-    "logoutBtn"
-  )
-  .addEventListener(
-    "click",
-    () => {
-
-      localStorage.removeItem(
-        "pczone_access_token"
+    const list =
+      document.getElementById(
+        "productsList"
       );
 
 
-      localStorage.removeItem(
-        "pczone_refresh_token"
-      );
+    if (!products.length) {
 
+      list.innerHTML =
+        `<p>لا توجد منتجات حتى الآن.</p>`;
 
-      location.reload();
+      return;
 
     }
-  );
 
 
-// ======================================================
-// ESCAPE HTML
-// ======================================================
+    list.innerHTML =
+      products
+        .map(product => `
 
-function escapeHtml(value) {
+          <div class="product">
 
-  return String(
-    value || ""
-  )
+            <div class="product-info">
 
-    .replace(
-      /&/g,
-      "&amp;"
-    )
+              <h3>
+                ${escapeHtml(product.name)}
+              </h3>
 
-    .replace(
-      /</g,
-      "&lt;"
-    )
+              <p>
+                ${Number(product.price || 0).toLocaleString()}
+                ج.م
+                —
+                ${escapeHtml(product.category)}
+              </p>
 
-    .replace(
-      />/g,
-      "&gt;"
-    )
+            </div>
 
-    .replace(
-      /"/g,
-      "&quot;"
-    )
+            <div class="product-actions">
 
-    .replace(
-      /'/g,
-      "&#039;"
+              <button
+                class="edit"
+                onclick="editProduct(${product.id})"
+              >
+                تعديل
+              </button>
+
+              <button
+                class="delete"
+                onclick="deleteProduct(${product.id})"
+              >
+                حذف
+              </button>
+
+            </div>
+
+          </div>
+
+        `)
+        .join("");
+
+  }
+
+
+  /* ==========================================
+     ADD / UPDATE PRODUCT
+  ========================================== */
+
+  document
+    .getElementById("productForm")
+    .addEventListener(
+      "submit",
+      async function(event) {
+
+        event.preventDefault();
+
+
+        const id =
+          document
+            .getElementById("productId")
+            .value;
+
+
+        const product = {
+
+          name:
+            document
+              .getElementById("name")
+              .value
+              .trim(),
+
+          category:
+            document
+              .getElementById("category")
+              .value,
+
+          price:
+            Number(
+              document
+                .getElementById("price")
+                .value
+            ),
+
+          old_price:
+            Number(
+              document
+                .getElementById("oldPrice")
+                .value
+            ) || null,
+
+          image_url:
+            document
+              .getElementById("imageUrl")
+              .value
+              .trim() || null,
+
+          specs:
+            document
+              .getElementById("specs")
+              .value
+              .trim() || null,
+
+          description:
+            document
+              .getElementById("description")
+              .value
+              .trim() || null,
+
+          stock:
+            document
+              .getElementById("stock")
+              .checked,
+
+          featured:
+            document
+              .getElementById("featured")
+              .checked
+
+        };
+
+
+        const message =
+          document.getElementById(
+            "formMessage"
+          );
+
+
+        message.className =
+          "success";
+
+        message.textContent =
+          "جاري الحفظ...";
+
+
+        try {
+
+          let response;
+
+
+          if (id) {
+
+            response =
+              await authFetch(
+                `${SUPABASE_URL}/rest/v1/products?id=eq.${encodeURIComponent(id)}`,
+                {
+                  method: "PATCH",
+
+                  headers: {
+                    "Content-Type":
+                      "application/json",
+
+                    "Prefer":
+                      "return=minimal"
+                  },
+
+                  body:
+                    JSON.stringify(product)
+                }
+              );
+
+          }
+
+          else {
+
+            response =
+              await authFetch(
+                `${SUPABASE_URL}/rest/v1/products`,
+                {
+                  method: "POST",
+
+                  headers: {
+                    "Content-Type":
+                      "application/json",
+
+                    "Prefer":
+                      "return=minimal"
+                  },
+
+                  body:
+                    JSON.stringify(product)
+                }
+              );
+
+          }
+
+
+          if (!response.ok) {
+
+            const errorText =
+              await response.text();
+
+            throw new Error(
+              errorText ||
+              "حدث خطأ أثناء الحفظ"
+            );
+
+          }
+
+
+          message.className =
+            "success";
+
+
+          message.textContent =
+            id
+              ? "تم تعديل المنتج بنجاح ✅"
+              : "تم إضافة المنتج بنجاح ✅";
+
+
+          resetForm();
+
+          await loadProducts();
+
+        }
+
+        catch (error) {
+
+          console.error(error);
+
+          message.className =
+            "error";
+
+          message.textContent =
+            "حدث خطأ: " +
+            error.message;
+
+        }
+
+      }
     );
 
-}
+
+  /* ==========================================
+     EDIT PRODUCT
+  ========================================== */
+
+  window.editProduct =
+    function(id) {
+
+      const product =
+        products.find(
+          item =>
+            Number(item.id) ===
+            Number(id)
+        );
 
 
-// ======================================================
-// AUTO LOGIN
-// ======================================================
-
-const savedToken =
-  localStorage.getItem(
-    "pczone_access_token"
-  );
+      if (!product) return;
 
 
-if (savedToken) {
+      document.getElementById(
+        "productId"
+      ).value =
+        product.id;
 
-  showAdmin();
 
-  loadProducts();
+      document.getElementById(
+        "name"
+      ).value =
+        product.name || "";
 
-}
 
-</script>
+      document.getElementById(
+        "category"
+      ).value =
+        product.category || "";
 
-</body>
+
+      document.getElementById(
+        "price"
+      ).value =
+        product.price || "";
+
+
+      document.getElementById(
+        "oldPrice"
+      ).value =
+        product.old_price || "";
+
+
+      document.getElementById(
+        "imageUrl"
+      ).value =
+        product.image_url || "";
+
+
+      document.getElementById(
+        "specs"
+      ).value =
+        product.specs || "";
+
+
+      document.getElementById(
+        "description"
+      ).value =
+        product.description || "";
+
+
+      document.getElementById(
+        "stock"
+      ).checked =
+        Boolean(product.stock);
+
+
+      document.getElementById(
+        "featured"
+      ).checked =
+        Boolean(product.featured);
+
+
+      document.getElementById(
+        "formTitle"
+      ).textContent =
+        "تعديل المنتج";
+
+
+      document
+        .getElementById("cancelEdit")
+        .classList.remove(
+          "hidden"
+        );
+
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+
+    };
+
+
+  /* ==========================================
+     DELETE PRODUCT
+  ========================================== */
+
+  window.deleteProduct =
+    async function(id) {
+
+      const confirmed =
+        confirm(
+          "هل أنت متأكد من حذف هذا المنتج؟"
+        );
+
+
+      if (!confirmed) return;
+
+
+      try {
+
+        const response =
+          await authFetch(
+            `${SUPABASE_URL}/rest/v1/products?id=eq.${encodeURIComponent(id)}`,
+            {
+              method: "DELETE",
+
+              headers: {
+                "Prefer":
+                  "return=minimal"
+              }
+            }
+          );
+
+
+        if (!response.ok) {
+
+          throw new Error(
+            await response.text()
+          );
+
+        }
+
+
+        await loadProducts();
+
+      }
+
+      catch (error) {
+
+        console.error(error);
+
+        alert(
+          "حدث خطأ أثناء حذف المنتج:\n" +
+          error.message
+        );
+
+      }
+
+    };
+
+
+  /* ==========================================
+     RESET FORM
+  ========================================== */
+
+  function resetForm() {
+
+    document
+      .getElementById("productForm")
+      .reset();
+
+
+    document.getElementById(
+      "productId"
+    ).value = "";
+
+
+    document.getElementById(
+      "stock"
+    ).checked = true;
+
+
+    document.getElementById(
+      "formTitle"
+    ).textContent =
+      "إضافة منتج جديد";
+
+
+    document
+      .getElementById("cancelEdit")
+      .classList.add(
+        "hidden"
+      );
+
+  }
+
+
+  document
+    .getElementById("cancelEdit")
+    .addEventListener(
+      "click",
+      resetForm
+    );
+
+
+  /* ==========================================
+     LOGOUT
+  ========================================== */
+
+  document
+    .getElementById("logoutBtn")
+    .addEventListener(
+      "click",
+      async function() {
+
+        try {
+
+          const token =
+            getAccessToken();
+
+
+          if (token) {
+
+            await fetch(
+              `${SUPABASE_URL}/auth/v1/logout`,
+              {
+                method: "POST",
+
+                headers: {
+                  "apikey": SUPABASE_KEY,
+
+                  "Authorization":
+                    `Bearer ${token}`
+                }
+              }
+            );
+
+          }
+
+        }
+
+        catch (error) {
+
+          console.error(error);
+
+        }
+
+
+        clearSession();
+
+        showLogin();
+
+      }
+    );
+
+
+  /* ==========================================
+     HTML ESCAPE
+  ========================================== */
+
+  function escapeHtml(value) {
+
+    return String(value || "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+
+  }
+
+
+  /* ==========================================
+     AUTO LOGIN
+  ========================================== */
+
+  async function initializeApp() {
+
+    const accessToken =
+      getAccessToken();
+
+    const refreshToken =
+      getRefreshToken();
+
+
+    if (!accessToken || !refreshToken) {
+
+      showLogin();
+
+      return;
+
+    }
+
+
+    try {
+
+      /*
+        نجدد الـSession عند فتح الصفحة،
+        وده يمنع استخدام Access Token قديم.
+      */
+
+      await refreshSession();
+
+      showAdmin();
+
+      await loadProducts();
+
+    }
+
+    catch (error) {
+
+      console.error(error);
+
+      clearSession();
+
+      showLogin();
+
+    }
+
+  }
+
+
+  initializeApp();
+
+</script></body>
 </html>
