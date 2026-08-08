@@ -559,3 +559,27 @@ testSupabase();
 // ===============================
 
 render();
+async function testSupabaseConnection() {
+  try {
+    const response = await fetch(
+      `${SUPABASE_URL}/rest/v1/products?select=id&limit=1`,
+      {
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: `Bearer ${SUPABASE_KEY}`
+        }
+      }
+    );
+
+    if (response.ok) {
+      alert("🟢 Supabase متصل بنجاح!");
+    } else {
+      alert("🔴 Supabase غير متصل\nError: " + response.status);
+    }
+
+  } catch (error) {
+    alert("🔴 حصل خطأ في الاتصال بـ Supabase");
+  }
+}
+
+testSupabaseConnection();
